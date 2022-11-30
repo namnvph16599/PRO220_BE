@@ -11,7 +11,8 @@ export const getAll = async (req, res) => {
     }
 }
 
-export const getById = async (req, res) => {
+
+export const getById = async (req, res) => 
     try {
         const data = await orderModel.findOne({
             _id: req.params.id
@@ -24,6 +25,7 @@ export const getById = async (req, res) => {
     }
 }
 
+
 export const create = async (req, res) => {
     try {
         const data = await new orderModel(req.body).save();
@@ -35,7 +37,9 @@ export const create = async (req, res) => {
     }
 }
 
+
 export const removeById = async (req, res) => {
+
     try {
         const data = await orderModel.findOneAndDelete({
             _id: req.params.id,
@@ -48,7 +52,9 @@ export const removeById = async (req, res) => {
     }
 }
 
+
 export const updateById = async (req, res) => {
+
     try {
         const data = await orderModel.findOneAndUpdate({
             _id: req.params.id
