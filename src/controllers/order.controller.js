@@ -14,7 +14,7 @@ export const getAll = async (req, res) => {
 }
 
 
-export const getById = async (req, res) => 
+export const getById = async (req, res) => {
     try {
         const data = await orderService.getById(
             req.params.id
