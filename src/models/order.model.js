@@ -1,29 +1,32 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-const orderSchema = mongoose.Schema({
-    date: {
-        type: Date
+const orderSchema = mongoose.Schema(
+    {
+        date: {
+            type: Date,
+        },
+        serviceType: {
+            type: String,
+        },
+        description: {
+            type: String,
+        },
+        user: {
+            type: mongoose.ObjectId,
+            ref: 'user',
+        },
+        cateStore: {
+            type: mongoose.ObjectId,
+            ref: 'cateStore',
+        },
+        cateService: {
+            type: mongoose.ObjectId,
+            ref: 'cateService',
+        },
     },
-    serviceType: {
-        type: String
+    {
+        timestamps: true,
     },
-    description: {
-        type: String
-    },
-    user: {
-        type: mongoose.ObjectId,
-        ref: 'user',
-    },
-    cateStore: {
-        type: mongoose.ObjectId,
-        ref: 'cateStore',
-    },
-    cateService: {
-        type: mongoose.ObjectId,
-        ref: 'cateService',
-    }
-}, {
-    timestamps: true
-})
+);
 
-export default mongoose.model('Order', orderSchema)
+export default mongoose.model('Order', orderSchema);
