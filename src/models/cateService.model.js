@@ -1,9 +1,14 @@
 import mongoose from 'mongoose';
-const cateServiceSchema = mongoose.Schema({
-    name: {
-        type: String,
+const cateServiceSchema = mongoose.Schema(
+    {
+        name: {
+            type: String,
+        },
     },
-});
+    {
+        timestamps: true,
+    },
+);
 
-export default mongoose.model('cateService', cateServiceSchema);
-// module.exports = cateService;
+const cateServiceModel = mongoose.model('cateService', cateServiceSchema);
+module.exports = cateServiceModel;

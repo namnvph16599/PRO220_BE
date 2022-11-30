@@ -1,11 +1,12 @@
 require('dotenv').config();
-const httpStatus = require('http-status');
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import morgan from 'morgan';
 import ApiError from './utils/ApiError';
 import routercateService from './routes/cateService.router';
+import orderRouter from './routes/order.router';
+import httpStatus from 'http-status';
 const app = express();
 
 //parse json request body
@@ -17,8 +18,15 @@ app.use(morgan('tiny'));
 app.use(cors());
 app.options('*', cors());
 
+//use routers
+app.use('/api', orderRouter);
+
 // parse urlencoded request body
-app.use(express.urlencoded({ extended: true }));
+app.use(
+    express.urlencoded({
+        extended: true,
+    }),
+);
 
 // send back a 404 error for any unknown api request
 // app.use((req, res, next) => {

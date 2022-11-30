@@ -5,12 +5,12 @@ import { cateServiceValidate } from '../validations';
 
 const router = express.Router();
 
-router.get('/category', cateServiceController.getAll);
-router.get('/category/:id', validate(cateServiceValidate.getById), cateServiceController.getById);
-router.post('/category', validate(cateServiceValidate.createCateService), cateServiceController.create);
-router.delete('/category/:id', validate(cateServiceValidate.getById), cateServiceController.removeById);
+router.get('/cate-service', cateServiceController.getAll);
+router.get('/cate-service/:id', validate(cateServiceValidate.getById), cateServiceController.getById);
+router.post('/cate-service', validate(cateServiceValidate.createCateService), cateServiceController.create);
+router.delete('/cate-service/:id', validate(cateServiceValidate.getById), cateServiceController.removeById);
 router.patch(
-    '/category/:id',
+    '/cate-service/:id',
     validate(cateServiceValidate.createCateService),
     validate(cateServiceValidate.getById),
     cateServiceController.updateById,

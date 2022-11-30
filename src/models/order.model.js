@@ -29,4 +29,8 @@ const orderSchema = mongoose.Schema(
     },
 );
 
-export default mongoose.model('Order', orderSchema);
+// export default mongoose.model('Order', orderSchema) //no cai nay xoa r ma???
+
+const OrderModel = mongoose.model('OrderModel', orderSchema);
+
+module.exports = OrderModel;
