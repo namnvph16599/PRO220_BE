@@ -5,6 +5,7 @@ import cors from 'cors'
 import morgan from 'morgan';
 import ApiError from './utils/ApiError'
 import orderRouter from './routes/order.router'
+import showroomRouter from './routes/showroom.router'
 import httpStatus from 'http-status';
 const app = express()
 
@@ -19,6 +20,7 @@ app.options('*', cors());
 
 //use routers
 app.use('/api', orderRouter);
+app.use('/api',showroomRouter)
 
 // parse urlencoded request body
 app.use(express.urlencoded({
