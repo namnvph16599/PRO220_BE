@@ -6,6 +6,7 @@ import morgan from 'morgan';
 import ApiError from './utils/ApiError'
 import orderRouter from './routes/order.router'
 import httpStatus from 'http-status';
+import routerAccount from './routes/acount.router'
 const app = express()
 
 //parse json request body
@@ -19,6 +20,7 @@ app.options('*', cors());
 
 //use routers
 app.use('/api', orderRouter);
+app.use('/api',routerAccount)
 
 // parse urlencoded request body
 app.use(express.urlencoded({
