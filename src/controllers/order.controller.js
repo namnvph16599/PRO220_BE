@@ -13,7 +13,8 @@ export const getAll = async (req, res) => {
     }
 }
 
-export const getById = async (req, res) => {
+
+export const getById = async (req, res) => 
     try {
         const data = await orderService.getById(
             req.params.id
@@ -25,6 +26,7 @@ export const getById = async (req, res) => {
         })
     }
 }
+
 
 export const create = async (req, res) => {
     try {
@@ -39,7 +41,9 @@ export const create = async (req, res) => {
     }
 }
 
+
 export const removeById = async (req, res) => {
+
     try {
         const data = await orderService.removeById(req.params.id)
         res.json(data)
@@ -50,7 +54,9 @@ export const removeById = async (req, res) => {
     }
 }
 
+
 export const updateById = async (req, res) => {
+
     try {
         const data = await orderService.updateById(req.params.id, req.body)
         res.json(data)
