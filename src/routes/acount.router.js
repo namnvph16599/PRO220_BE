@@ -1,16 +1,16 @@
 import { Router } from "express";
 import {accountController} from '../controllers'
-import { login } from "../controllers/Login.controller";
+import { login } from "../controllers/login.controller";
 import validate from "../middlewares/validate";
 import { accountValidation } from "../validations";
 
 const router = Router()
 
-router.get('/Accounts',accountController.listAccount)
-router.get('/Account/:id',accountController.getAccount)
-router.post('/Register',validate(accountValidation.createAccount),accountController.addAccount)
-router.delete('/DeleteAccount/:id',validate(accountValidation.getById),accountController.deleteAccount)
-router.put('/UpdateAccount/:id',validate(accountValidation.createAccount),accountController.updateAccount)
-router.post('/Login',validate(accountValidation.login),login)
+router.get('/accounts',accountController.getAll)
+router.get('/account/:id',validate(accountValidation.getById),accountController.getById)
+router.post('/register',validate(accountValidation.createAccount),accountController.create)
+router.delete('/deleteAccount/:id',validate(accountValidation.getById),accountController.removeById)
+router.put('/updateAccount/:id',validate(accountValidation.createAccount),accountController.updateById)
+router.post('/login',validate(accountValidation.login),login)
 
 export default router

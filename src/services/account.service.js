@@ -19,3 +19,7 @@ export const removeById = async (_id) => {
 export const updateById = async (_id, data) => {
     return await accountModel.findOneAndUpdate({ _id }, data, { new: true });
 };
+
+export const getEmail = async (data) => {
+    return await accountModel.findOne({ email:data });
+};

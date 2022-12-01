@@ -1,9 +1,10 @@
-import accountModel from '../models/account.model'
+// import accountModel from '../models/account.model'
+import { accountServices } from '../services'
 import bcyrpt from 'bcrypt'
 
 export const login = async (req,res)=>{
     try {
-        const checkEmail = await accountModel.findOne({email:req.body.email})
+        const checkEmail = await accountServices.getEmail(req.body.email)
         if (!checkEmail) {
             return res.json({
                 message:'email chưa tồn tại'

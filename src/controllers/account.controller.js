@@ -1,8 +1,7 @@
-import accountModel from '../models/account.model'
 import bcyrpt from 'bcrypt'
 import { accountServices } from '../services'
 
-export const listAccount = async (req,res)=>{
+export const getAll = async (req,res)=>{
     try {
         const data = await accountServices.getAll()
         res.json(data)
@@ -13,9 +12,9 @@ export const listAccount = async (req,res)=>{
     }
 }
 
-export const addAccount = async (req,res)=>{
+export const create = async (req,res)=>{
     try {
-        const checkEmail = await accountModel.findOne({email:req.body.email})
+        const checkEmail = await accountServices.getEmail(req.body.email)
         if (checkEmail) {
             return res.json({
                 message:'email đã tồn tại'
@@ -31,7 +30,7 @@ export const addAccount = async (req,res)=>{
     }
 }
 
-export const deleteAccount = async(req,res)=>{
+export const removeById = async(req,res)=>{
     try {
         const data = await accountServices.removeById(req.params.id)
         res.json(data)
@@ -42,7 +41,7 @@ export const deleteAccount = async(req,res)=>{
     }
 }
 
-export const updateAccount = async(req,res)=>{
+export const updateById = async(req,res)=>{
     try {
         const data = await accountServices.updateById(req.params.id,req.body)
         res.json(data)
@@ -53,7 +52,7 @@ export const updateAccount = async(req,res)=>{
     }
 }
 
-export const getAccount = async (req,res)=>{
+export const getById = async (req,res)=>{
     try {
         const data = await accountServices.getById(req.params.id)
         res.json(data)
