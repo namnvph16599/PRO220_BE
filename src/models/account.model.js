@@ -17,9 +17,13 @@ const accountSchema = mongoose.Schema({
         type:Number,
         required:true
     },
+    image:{
+        type:String,
+        required:true
+    },
     role:{
         type:Number
     }
-})
+},{ timestamps: true,})
 
 export default mongoose.model('Account',accountSchema)

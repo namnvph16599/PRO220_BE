@@ -1,9 +1,10 @@
 import accountModel from '../models/account.model'
 import bcyrpt from 'bcrypt'
+import { accountServices } from '../services'
 
 export const listAccount = async (req,res)=>{
     try {
-        const data = await accountModel.find()
+        const data = await accountServices.getAll()
         res.json(data)
     } catch (error) {
         res.status(400).json({
@@ -21,7 +22,7 @@ export const addAccount = async (req,res)=>{
             })
         }
         const passwordVerify = bcyrpt.hashSync(req.body.password, 10)
-        const data = await accountModel({...req.body,password:passwordVerify}).save()
+        const data = await accountServices.create({...req.body,password:passwordVerify})
         res.json(data)
     } catch (error) {
         res.status(400).json({
@@ -32,7 +33,7 @@ export const addAccount = async (req,res)=>{
 
 export const deleteAccount = async(req,res)=>{
     try {
-        const data = await accountModel.findOneAndDelete({_id:req.params.id})
+        const data = await accountServices.removeById(req.params.id)
         res.json(data)
     } catch (error) {
         res.status(400).json({
@@ -43,7 +44,18 @@ export const deleteAccount = async(req,res)=>{
 
 export const updateAccount = async(req,res)=>{
     try {
-        const data = await accountModel.findOneAndUpdate({_id:req.params.id},req.body,{new:true})
+        const data = await accountServices.updateById(req.params.id,req.body)
+        res.json(data)
+    } catch (error) {
+        res.status(400).json({
+            message:error
+        })
+    }
+}
+
+export const getAccount = async (req,res)=>{
+    try {
+        const data = await accountServices.getById(req.params.id)
         res.json(data)
     } catch (error) {
         res.status(400).json({
