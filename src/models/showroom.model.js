@@ -5,8 +5,19 @@ const showroomSchema = mongoose.Schema({
     },
     phone: {
         type: String
-    }
+    },
+    address: {
+        type: String
+    },
+    images:[],
+    location: {
+        type: {
+          type: String
+        },
+        coordinates: []
+    },
 })
+showroomSchema.index({ location: '2dsphere' })
 const showroomModel = mongoose.model('showroom', showroomSchema);
 
 module.exports = showroomModel;
