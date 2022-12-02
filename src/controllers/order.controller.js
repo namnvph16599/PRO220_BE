@@ -1,4 +1,4 @@
-import orderModel from '../models/order.model';
+import { orderService } from '../services';
 
 export const getAll = async (req, res) => {
     try {
