@@ -18,6 +18,7 @@ const showroomSchema = mongoose.Schema({
     },
 })
 showroomSchema.index({ location: '2dsphere' })
+
 const showroomModel = mongoose.model('showroom', showroomSchema);
 
 module.exports = showroomModel;
