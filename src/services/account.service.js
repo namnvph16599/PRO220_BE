@@ -1,25 +1,25 @@
-import accountModel from '../models/account.model';
+import { accountServiceModel } from "../models";
 
 export const getAll = async () => {
-    return accountModel.find();
+    return accountServiceModel.find();
 };
 
 export const getById = async (_id) => {
-    return await accountModel.findOne({ _id }).exec();
+    return await accountServiceModel.findOne({ _id }).exec();
 };
 
 export const create = async (data) => {
-    return await new accountModel(data).save();
+    return await new accountServiceModel(data).save();
 };
 
 export const removeById = async (_id) => {
-    return await accountModel.findOneAndDelete({ _id }).exec();
+    return await accountServiceModel.findOneAndDelete({ _id }).exec();
 };
 
 export const updateById = async (_id, data) => {
-    return await accountModel.findOneAndUpdate({ _id }, data, { new: true });
+    return await accountServiceModel.findOneAndUpdate({ _id }, data, { new: true });
 };
 
 export const getEmail = async (data) => {
-    return await accountModel.findOne({ email:data });
+    return await accountServiceModel.findOne({ email:data });
 };
