@@ -26,4 +26,6 @@ const accountSchema = mongoose.Schema({
     }
 },{ timestamps: true,})
 
-export default mongoose.model('Account',accountSchema)
+const AccountModel = mongoose.model('Account',accountSchema)
+
+module.exports = AccountModel;
