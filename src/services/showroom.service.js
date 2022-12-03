@@ -1,14 +1,12 @@
-import {
-    showroomModel
-} from "../models";
-
+import mongoose from "mongoose";
+import { showroomModel } from "../models";
 export const getAll =  () => {
-    return  showroomModel.find();
+    return  showroomModel.find({ deleted: false });
 }
 
 export const getById = (_id) => {
     return showroomModel.findOne({
-        _id
+        _id, deleted :false
     }).exec();
 }
 
@@ -29,16 +27,11 @@ export const create = (data) => {
     return new showroomModel(dataShowroom).save()
 }
 
-export const removeById = (_id) => {
-    return showroomModel.findOneAndDelete({
-        _id
-    }).exec()
+export const removeById = async (_id) => {
+    const showroomId = mongoose.Types.ObjectId(_id);
+    showroomModel.delete({ _id: showroomId },(err,rs) => {});
 }
 
 export const updateById = (_id, data) => {
-    return showroomModel.findOneAndUpdate({
-        _id
-    }, data, {
-        new: true
-    })
+    return showroomModel.findOneAndUpdate({ _id, deleted: false }, data, { new: true });
 }
