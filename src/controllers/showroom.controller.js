@@ -42,7 +42,6 @@ export const removeById = async (req, res) => {
     try {
         showroomService.removeById(req.params.id).then(async()=>{
             const data = await showroomService.getById(req.params.id,{deleted :true})
-            console.log(data);
             res.status(200).json(data)
         }) 
     } catch (error) {
