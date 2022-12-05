@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { BannerService } from '../services';
 
 export const getAll = async (req, res) => {
@@ -41,6 +42,25 @@ export const removeById = async (req, res) => {
     } catch (error) {
         res.status(400).json({
             error: 'khong xoa duoc',
+        });
+    }
+};
+
+export const removeByIds = async (req, res) => {
+    try {
+        BannerService.removeByIds(req.body.ids).then(async () => {
+            //when remove succes check ids length = 1 => return data
+            if (_.get(req.body.ids, 'length', 0) === 1) {
+                const dataDeleted = await BannerService.getById(req.body.ids[0], { deleted: true });
+                res.json(dataDeleted);
+                return;
+            }
+            res.json({});
+        });
+    } catch (errors) {
+        res.status(400).json({
+            message: 'Đã có lỗi xảy ra xóa thất bại',
+            errors,
         });
     }
 };
