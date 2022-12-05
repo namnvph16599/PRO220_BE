@@ -4,9 +4,9 @@ export const getAll =  () => {
     return  showroomModel.find({ deleted: false });
 }
 
-export const getById = (_id) => {
+export const getById = (_id, filter={deleted :false}) => {
     return showroomModel.findOne({
-        _id, deleted :false
+        _id,...filter
     }).exec();
 }
 
@@ -34,4 +34,25 @@ export const removeById = async (_id) => {
 
 export const updateById = (_id, data) => {
     return showroomModel.findOneAndUpdate({ _id, deleted: false }, data, { new: true });
+}
+
+export const showroomNearBy = (data)=>{
+    console.log(data);
+    return showroomModel.aggregate([
+        {
+          $geoNear: {
+            near: {
+              type: 'Point',
+              coordinates: [
+                parseFloat(data.longitude),
+                parseFloat(data.latitude),
+              ],
+            },
+            key: 'location',
+            maxDistance: parseInt(data.dist),
+            distanceField: 'calculated',
+            spherical: true,
+          },
+        }
+    ])
 }
