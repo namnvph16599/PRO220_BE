@@ -37,7 +37,6 @@ export const updateById = (_id, data) => {
 }
 
 export const showroomNearBy = (data)=>{
-    console.log(data);
     return showroomModel.aggregate([
         {
           $geoNear: {
