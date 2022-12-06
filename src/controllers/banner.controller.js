@@ -49,13 +49,16 @@ export const removeById = async (req, res) => {
 export const removeByIds = async (req, res) => {
     try {
         BannerService.removeByIds(req.body.ids).then(async () => {
+            console.log('req.body.ids', req.body.ids);
             //when remove succes check ids length = 1 => return data
             if (_.get(req.body.ids, 'length', 0) === 1) {
-                const dataDeleted = await BannerService.getById(req.body.ids[0], { deleted: true });
-                res.json(dataDeleted);
+                console.log('req.body.ids[0]', req.body.ids[0]);
+                const dataDeleted = await BannerService.getById(req.body.ids[0]);
+                console.log('dataDeleted', dataDeleted);
+                res.json({ ids: req.body.ids, dataDeleted });
                 return;
             }
-            res.json({});
+            res.json({ ids: req.body.ids, dataDeleted : null });
         });
     } catch (errors) {
         res.status(400).json({
