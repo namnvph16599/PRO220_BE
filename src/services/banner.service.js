@@ -2,8 +2,8 @@ import _ from 'lodash';
 import mongoose from 'mongoose';
 import { BannerModel } from '../models';
 
-export const getAll = async () => {
-    return BannerModel.find({ deleted: false });
+export const getAll = async (filter = { deleted: false }) => {
+    return BannerModel.find({ ...filter });
 };
 
 export const getById = async (_id, filter = { deleted: false }) => {
