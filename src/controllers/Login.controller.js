@@ -1,6 +1,6 @@
-// import accountModel from '../models/account.model'
 import { accountServices } from '../services'
 import bcyrpt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
 export const login = async (req,res)=>{
     try {
@@ -16,8 +16,22 @@ export const login = async (req,res)=>{
                 message:'mật khẩu sai vui lòng nhập lại'
             })
         }
+        const accessToken = jwt.sign({
+            id:checkEmail.id,
+            name:checkEmail.name,
+            role:checkEmail.role
+        },
+        "secretkey",
+        {expiresIn:100}
+        )
+        res.cookie('accessToken',accessToken,{
+            httpOnly:true,
+            secure:true,
+            path:'/',
+            samesite:"strict"
+        })
         res.status(200).json({
-            message:checkEmail
+            accessToken
         })
     } catch (error) {
         res.status(400).json({

@@ -7,6 +7,7 @@ export const createAccount = {
         password: Joi.string().required(),
         number_phone: Joi.number().required(),
         image:Joi.string().required(),
+        role:Joi.number()
     })
 }
 
