@@ -1,8 +1,11 @@
 import Joi from 'joi';
 
-export const createCateService = {
+export const createMaterials = {
     body: Joi.object().keys({
         name: Joi.string().required(),
+        price: Joi.number().required(),
+        quantity: Joi.number().required(),
+        image: Joi.string().required(),
     }),
 };
 export const getById = {

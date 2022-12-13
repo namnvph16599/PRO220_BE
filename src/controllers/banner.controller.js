@@ -1,12 +1,10 @@
 import _ from 'lodash';
-import {
-    orderService
-} from '../services';
+import { BannerService } from '../services';
 
 export const getAll = async (req, res) => {
     try {
-        const data = await orderService.getAll();
-        res.json(data);
+        const category = await BannerService.getAll(req.query.filter);
+        res.json(category);
     } catch (errors) {
         res.status(400).json({
             errors,
@@ -17,11 +15,11 @@ export const getAll = async (req, res) => {
 
 export const getById = async (req, res) => {
     try {
-        const data = await orderService.getById(req.params.id);
-        res.json(data);
+        const category = await BannerService.getById(req.params.id);
+        res.json(category);
     } catch (errors) {
         res.status(400).json({
-            eerrors,
+            errors,
             message: 'Đã có lỗi xảy ra không tìm thấy dữ liệu!',
         });
     }
@@ -29,10 +27,8 @@ export const getById = async (req, res) => {
 
 export const create = async (req, res) => {
     try {
-        console.log(req.body);
-        // const data = await new orderModel(data).save();
-        const data = await orderService.create(req.body);
-        res.json(data);
+        const category = await BannerService.create(req.body);
+        res.json(category);
     } catch (errors) {
         res.status(400).json({
             errors,
@@ -43,10 +39,8 @@ export const create = async (req, res) => {
 
 export const removeById = async (req, res) => {
     try {
-        await orderService.removeById(req.params.id);
-        const dataDeleted = await orderService.getById(req.params.id, {
-            delete: true
-        });
+        await BannerService.removeById(req.params.id);
+        const dataDeleted = await BannerService.getById(req.params.id, { deleted: true });
         res.json(dataDeleted);
     } catch (errors) {
         res.status(400).json({
@@ -58,32 +52,30 @@ export const removeById = async (req, res) => {
 
 export const removeByIds = async (req, res) => {
     try {
-        orderService.removeByIds(req.body.ids).then(async () => {
+        BannerService.removeByIds(req.body.ids).then(async () => {
+            console.log('req.body.ids', req.body.ids);
+            //when remove succes check ids length = 1 => return data
             if (_.get(req.body.ids, 'length', 0) === 1) {
-                const dataDeleted = await orderService.getById(req.body.ids[0]);
-                res.json({
-                    ids: req.body.ids,
-                    dataDeleted
-                })
-                return
+                console.log('req.body.ids[0]', req.body.ids[0]);
+                const dataDeleted = await BannerService.getById(req.body.ids[0]);
+                console.log('dataDeleted', dataDeleted);
+                res.json({ ids: req.body.ids, dataDeleted });
+                return;
             }
-        })
-        res.json({
-            ids: req.body.ids,
-            dataDeleted: null
-        })
+            res.json({ ids: req.body.ids, dataDeleted: null });
+        });
     } catch (errors) {
         res.status(400).json({
             errors,
             message: 'Đã có lỗi xảy ra xóa thất bại!',
         });
     }
-}
+};
 
 export const updateById = async (req, res) => {
     try {
-        const data = await orderService.updateById(req.params.id, req.body);
-        res.json(data);
+        const category = await BannerService.updateById(req.params.id, req.body);
+        res.json(category);
     } catch (errors) {
         res.status(400).json({
             errors,

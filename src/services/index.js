@@ -1,3 +1,7 @@
-export * as orderService from './order.service'
-export * as showroomService from './showroom.service'
-export * as cateServices from './cateService.service';
+module.exports.BannerService = require('./banner.service');
+module.exports.orderService = require('./order.service');
+module.exports.accountServices = require('./account.service');
+module.exports.showroomService = require('./showroom.service');
+module.exports.materialsService = require('./materials.service');
+
+

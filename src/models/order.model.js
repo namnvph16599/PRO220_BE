@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+var mongoose_delete = require('mongoose-delete');
 
 const orderSchema = mongoose.Schema({
     name: {
@@ -52,7 +53,8 @@ const orderSchema = mongoose.Schema({
 }, );
 
 // export default mongoose.model('Order', orderSchema) //no cai nay xoa r ma???
+orderSchema.plugin(mongoose_delete);
 
-const OrderModel = mongoose.model('OrderModel', orderSchema);
+const OrderModel = mongoose.model('Order', orderSchema);
 
 module.exports = OrderModel;
