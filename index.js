@@ -3,15 +3,15 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import morgan from 'morgan';
-import orderRouter from './routes/order.router';
-import showroomRouter from './routes/showroom.router';
-import ApiError from './utils/ApiError';
-import BannerRouter from './routes/banner.router';
-import routerMaterials from './routes/materials.router';
+import ApiError from './src/utils/ApiError';
+import orderRouter from './src/routes/order.router';
+import showroomRouter from './src/routes/showroom.router';
+import BannerRouter from './src/routes/banner.router';
+import routerMaterials from './src/routes/materials.router';
 import httpStatus from 'http-status';
-import routerAccount from './routes/acount.router'
 import cookiesParser from 'cookie-parser'
-const app = express()
+import routerAccount from './src/routes/acount.router';
+const app = express();
 // const app = express();
 
 //parse json request body
@@ -22,12 +22,17 @@ app.use(morgan('tiny'));
 app.use(cors({origin:'http://127.0.0.1:5173',credentials:true}));
 app.options('*', cors());
 //use routers
+
 app.use('/api', BannerRouter);
 
 app.use('/api', orderRouter);
-app.use('/api',routerAccount)
-app.use('/api',showroomRouter)
+app.use('/api', routerAccount);
+app.use('/api', showroomRouter);
 app.use('/api', routerMaterials);
+
+app.use('/', (req, res) => {
+    res.json('Hello World');
+});
 
 // parse urlencoded request body
 app.use(
@@ -37,7 +42,7 @@ app.use(
 );
 
 // send back a 404 error for any unknown api request
-app.use((req, res, next) => {                      
+app.use((req, res, next) => {
     next(new ApiError(httpStatus.NOT_FOUND, 'Không tồn tai api này vui lòng thử lại!'));
 });
 
@@ -46,6 +51,7 @@ try {
     // connect db atlas ket noi db atlas
     (async () => {
         const url = `mongodb+srv://${process.env.DATABASE}:${process.env.PASSWORD}@cluster0.utwdlzd.mongodb.net/web_app`;
+        
         console.log('URL', url);
         await mongoose.connect(url);
         console.log('CONNECTED SUCCES DB');
@@ -53,7 +59,7 @@ try {
 } catch (error) {
     console.log('CONNECTED FAILED', error.message);
 }
-
-app.listen(process.env.PORT, () => {
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
     console.log(`CONNECTED SUCCES PORT ${process.env.PORT}`);
 });
