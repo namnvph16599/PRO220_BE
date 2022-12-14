@@ -10,18 +10,17 @@ import BannerRouter from './routes/banner.router';
 import routerMaterials from './routes/materials.router';
 import httpStatus from 'http-status';
 import routerAccount from './routes/acount.router'
+import cookiesParser from 'cookie-parser'
 const app = express()
 // const app = express();
 
 //parse json request body
 app.use(express.json());
-
+app.use(cookiesParser())
 //use morgan log info when get data
 app.use(morgan('tiny'));
-
-app.use(cors());
+app.use(cors({origin:'http://127.0.0.1:5173',credentials:true}));
 app.options('*', cors());
-
 //use routers
 app.use('/api', BannerRouter);
 

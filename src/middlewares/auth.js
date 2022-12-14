@@ -3,18 +3,18 @@ import jwt from 'jsonwebtoken'
 export const verifyToken=(req,res,next)=>{
     const token = req.headers.token
     if (token) {
-        const accessToken = token
-        jwt.verify(accessToken,"secretkey",(error,user)=>{
+        const accessToken = token.split(" ")[1];
+        jwt.verify(accessToken,process.env.JWT_ACCESS_KEY,(error,user)=>{
             if (error) {
-               return res.status(402).json({
-                    message:'không có token'
+               return res.status(401).json({
+                    message:"Token is not valid!"
                 })
             }
             req.user = user
             next()
         })
     }else{
-        res.status(402).json("không có token")  
+        res.status(402).json("You're not authenticated")  
     }
 }
 
@@ -23,8 +23,8 @@ export const verifyAndAdminAuth = (req,res,next)=>{
         if (req.user.role == 1) {
             next()
         }else{
-           return res.json({
-                message:'bạn không phải admin'
+           return res.status(403).json({
+                message:"You're not allowed!"
             })
         }
     })
