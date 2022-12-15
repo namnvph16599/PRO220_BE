@@ -2,12 +2,14 @@ import Joi from "joi";
 
 export const createOrder = {
     body: Joi.object().keys({
+        name: Joi.string().required(),
         description: Joi.string().required(),
         serviceType: Joi.string().required(),
         date: Joi.date().required(),
-        // user: Joi.string().required(),
-        // cateStore: Joi.string().required(),
-        // cateService: Joi.string().required(),
+        addresses: Joi.string().required(),
+        phone: Joi.string().required(),
+        price: Joi.number().required(),
+        subPrice: Joi.number().required(),
     })
 }
 

@@ -31,9 +31,9 @@ app.use('/api', routerAccount);
 app.use('/api', showroomRouter);
 app.use('/api', routerMaterials);
 
-app.use('/', (req, res) => {
-    res.json('Hello World');
-});
+// app.use('/', (req, res) => {
+//     res.json('Hello World');
+// });
 
 // parse urlencoded request body
 app.use(
@@ -52,7 +52,7 @@ try {
     // connect db atlas ket noi db atlas
     (async () => {
         const url = `mongodb+srv://${process.env.DATABASE}:${process.env.PASSWORD}@cluster0.utwdlzd.mongodb.net/web_app`;
-        
+
         console.log('URL', url);
         await mongoose.connect(url);
         console.log('CONNECTED SUCCES DB');

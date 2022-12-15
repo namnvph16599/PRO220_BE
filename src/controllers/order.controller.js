@@ -21,7 +21,7 @@ export const getById = async (req, res) => {
         res.json(data);
     } catch (errors) {
         res.status(400).json({
-            eerrors,
+            errors,
             message: 'Đã có lỗi xảy ra không tìm thấy dữ liệu!',
         });
     }
