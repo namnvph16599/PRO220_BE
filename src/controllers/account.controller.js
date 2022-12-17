@@ -14,10 +14,10 @@ export const getAll = async (req, res) => {
 
 export const create = async (req, res) => {
     try {
-        const checkEmail = await accountServices.getEmail(req.body.email);
-        if (checkEmail) {
+        const Number_Phone = await accountServices.getPhone(req.body.number_phone);
+        if (Number_Phone) {
             return res.json({
-                message: 'email đã tồn tại',
+                message: 'số điện thoại đã tồn tại',
             });
         }
         const passwordVerify = bcyrpt.hashSync(req.body.password, 10);

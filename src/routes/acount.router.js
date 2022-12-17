@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { accountController } from '../controllers';
-import { login } from '../controllers/Login.controller';
+import { login, requestRefreshToken } from '../controllers/login.controller';
+import { verifyAndAdminAuth } from '../middlewares/auth';
 import validate from '../middlewares/validate';
 import { accountValidation } from '../validations';
 
@@ -16,6 +17,7 @@ router.put(
     accountController.updateById,
 );
 router.post('/login', validate(accountValidation.login), login);
+router.post('/refrehToken', requestRefreshToken);
 router.post('/register', validate(accountValidation.register), accountController.register);
 
 export default router;
