@@ -5,21 +5,21 @@ import { generateAccessToken, generateRefreshToken } from '../utils/Token';
 
 export const login = async (req, res) => {
     try {
-        const checkEmail = await accountServices.getEmail(req.body.email);
-        if (!checkEmail) {
+        const Number_Phone = await accountServices.getPhone(req.body.number_phone);
+        if (!Number_Phone) {
             return res.json({
-                message: 'email chưa tồn tại',
+                message: 'số điện thoại chưa tồn tại',
             });
         }
-        const comparePassword = bcyrpt.compareSync(req.body.password, checkEmail.password);
+        const comparePassword = bcyrpt.compareSync(req.body.password, Number_Phone.password);
         if (!comparePassword) {
             return res.json({
                 message: 'mật khẩu sai vui lòng nhập lại',
             });
         }
-        const accessToken = generateAccessToken(checkEmail);
-        const refreshToken = generateRefreshToken(checkEmail);
-        
+        const accessToken = generateAccessToken(Number_Phone);
+        const refreshToken = generateRefreshToken(Number_Phone);
+
         res.cookie('refreshToken', refreshToken, {
             sameSite: 'strict',
             path: '/',
