@@ -11,6 +11,17 @@ export const createAccount = {
     }),
 };
 
+
+export const register = {
+    body: Joi.object().keys({
+        name: Joi.string().required(),
+        number_phone: Joi.string().required(),
+        email:Joi.string().allow(''),
+        password: Joi.string().required(),
+        image:Joi.string().allow(''),
+    }),
+};
+
 export const getById = {
     params: Joi.object().keys({
         id: Joi.string().required(),

@@ -30,9 +30,6 @@ app.use('/api', routerAccount);
 app.use('/api', showroomRouter);
 app.use('/api', routerMaterials);
 
-app.use('/', (req, res) => {
-    res.json('Hello World');
-});
 
 // parse urlencoded request body
 app.use(

@@ -7,9 +7,8 @@ import { accountValidation } from '../validations';
 
 const router = Router();
 
-router.get('/accounts', verifyAndAdminAuth, accountController.getAll);
+router.get('/accounts', accountController.getAll);
 router.get('/account/:id', validate(accountValidation.getById), accountController.getById);
-router.post('/register', validate(accountValidation.createAccount), accountController.create);
 router.delete('/accounts/:id', validate(accountValidation.getById), accountController.removeById);
 router.put(
     '/accounts/:id',
@@ -19,5 +18,6 @@ router.put(
 );
 router.post('/login', validate(accountValidation.login), login);
 router.post('/refrehToken', requestRefreshToken);
+router.post('/register', validate(accountValidation.register), accountController.register);
 
 export default router;
