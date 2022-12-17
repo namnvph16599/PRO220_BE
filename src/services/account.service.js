@@ -24,7 +24,7 @@ export const updateById = async (_id, data) => {
 
 export const getPhone = async (data) => {
     return await accountServiceModel.findOne({ number_phone: data });
-}
+};
 export const search = async (filter = null) => {
     return accountServiceModel.findOne({ ...filter, ...baseFilter });
 };
