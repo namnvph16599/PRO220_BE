@@ -32,6 +32,15 @@ export const removeById = async (_id) => {
     showroomModel.delete({ _id: showroomId },(err,rs) => {});
 }
 
+export const removeByIds = async (ids = []) => {
+  const result = ids.map(async (id) => {
+      const showroomById = await getById(id);
+        removeById(id);
+  });
+  return result;
+};
+
+
 export const updateById = (_id, data) => {
     return showroomModel.findOneAndUpdate({ _id, deleted: false }, data, { new: true });
 }
