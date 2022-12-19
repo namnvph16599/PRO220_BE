@@ -11,6 +11,20 @@ export const createOrder = {
     })
 }
 
+export const getById = {
+    params: Joi.object().keys({
+        id: Joi.string().required(),
+    })
+}
+
+export const deleteByIds = {
+    body: Joi.object().keys({
+        ids: Joi.array().items(Joi.string()),
+    }),
+};
+
+// customer 
+
 export const createOrderByCustomer = {
     body: Joi.object().keys({
         description: Joi.string().allow('', null),
@@ -23,15 +37,3 @@ export const createOrderByCustomer = {
         showroomId: Joi.string().required(),
     })
 }
-
-export const getById = {
-    params: Joi.object().keys({
-        id: Joi.string().required(),
-    })
-}
-
-export const deleteByIds = {
-    body: Joi.object().keys({
-        ids: Joi.array().items(Joi.string()),
-    }),
-};
