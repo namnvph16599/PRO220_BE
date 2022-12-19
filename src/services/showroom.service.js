@@ -12,20 +12,17 @@ export const getById = (_id, filter={deleted :false}) => {
 
 export const create = (data) => {
     const dataShowroom = {
-        name:data.name,
-        phone:data.phone,
-        address:data.address,
-        images:data.images,
+        name: data.name,
+        phone: data.phone,
+        address: data.address,
+        images: data.images,
         location: {
             type: 'Point',
-            coordinates: [
-              parseFloat(data.longitude),
-              parseFloat(data.latitude)
-            ]
-        }
-    }
-    return new showroomModel(dataShowroom).save()
-}
+            coordinates: [parseFloat(data.longitude), parseFloat(data.latitude)],
+        },
+    };
+    return new showroomModel(dataShowroom).save();
+};
 
 export const removeById = async (_id) => {
     const showroomId = mongoose.Types.ObjectId(_id);
