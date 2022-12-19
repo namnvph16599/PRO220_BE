@@ -20,5 +20,7 @@ router.patch(
     validate(orderValidation.getById),
     orderController.updateById,
 );
+//customer
+router.post('/order-by-customer', validate(orderValidation.createOrderByCustomer), orderController.create);
 
 export default router;

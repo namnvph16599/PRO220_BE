@@ -1,4 +1,6 @@
-import { accountServiceModel } from "../models";
+import { accountServiceModel } from '../models';
+
+const baseFilter = { deleted: false };
 
 export const getAll = async () => {
     return accountServiceModel.find();
@@ -20,6 +22,9 @@ export const updateById = async (_id, data) => {
     return await accountServiceModel.findOneAndUpdate({ _id }, data, { new: true });
 };
 
-export const getEmail = async (data) => {
-    return await accountServiceModel.findOne({ email:data });
+export const getPhone = async (data) => {
+    return await accountServiceModel.findOne({ number_phone: data });
+};
+export const search = async (filter = null) => {
+    return accountServiceModel.findOne({ ...filter, ...baseFilter });
 };
