@@ -1,58 +1,62 @@
 import mongoose from 'mongoose';
 var mongoose_delete = require('mongoose-delete');
 
-const orderSchema = mongoose.Schema({
-    name: {
-        type: String
+const orderSchema = mongoose.Schema(
+    {
+        name: {
+            type: String,
+        },
+        address: {
+            type: String,
+        },
+        number_phone: {
+            type: String,
+        },
+        status: {
+            default : 1,
+            type: String,
+        },
+        price: {
+            type: Number,
+        },
+        subPrice: {
+            type: Number,
+        },
+        total: {
+            type: Number,
+        },
+        appointmentSchedule: {
+            type: Date,
+        },
+        serviceType: {
+            type: Number,
+        },
+        description: {
+            type: String,
+        },
+        eventId: {
+            type: mongoose.ObjectId,
+            ref: 'eventId',
+        },
+        accountId: {
+            default: null,
+            type: mongoose.ObjectId,
+            ref: 'accountId',
+        },
+        showroomId: {
+            type: mongoose.ObjectId,
+            ref: 'showroomId',
+        },
+        materialIds: {
+            type: mongoose.ObjectId,
+            ref: 'materialIds',
+        },
     },
-    addresses: {
-        type: String
+    {
+        timestamps: true,
     },
-    phone: {
-        type: String
-    },
-    status: {
-        type: String
-    },
-    price: {
-        type: Number
-    },
-    subPrice: {
-        type: Number
-    },
-    total: {
-        type: Number
-    },
-    date: {
-        type: Date,
-    },
-    serviceType: {
-        type: String,
-    },
-    description: {
-        type: String,
-    },
-    eventId: {
-        type: mongoose.ObjectId,
-        ref: 'eventId'
-    },
-    userId: {
-        type: mongoose.ObjectId,
-        ref: 'userId',
-    },
-    showroomId: {
-        type: mongoose.ObjectId,
-        ref: 'showroomId',
-    },
-    materialIds: {
-        type: mongoose.ObjectId,
-        ref: 'materialIds',
-    },
-}, {
-    timestamps: true,
-}, );
+);
 
-// export default mongoose.model('Order', orderSchema) //no cai nay xoa r ma???
 orderSchema.plugin(mongoose_delete);
 
 const OrderModel = mongoose.model('Order', orderSchema);

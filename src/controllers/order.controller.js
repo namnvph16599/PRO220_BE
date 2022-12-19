@@ -29,14 +29,12 @@ export const getById = async (req, res) => {
 
 export const create = async (req, res) => {
     try {
-        console.log(req.body);
-        // const data = await new orderModel(data).save();
         const data = await orderService.create(req.body);
-        res.json(data);
+        res.status(200).json(data);
     } catch (errors) {
         res.status(400).json({
             errors,
-            message: 'Đã có lỗi xảy ra không thể thêm thấy dữ liệu!',
+            message: 'Đã có lỗi xảy ra không thể thêm dữ liệu!',
         });
     }
 };
