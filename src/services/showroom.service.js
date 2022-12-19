@@ -4,10 +4,11 @@ export const getAll = () => {
     return showroomModel.find({ deleted: false });
 };
 
-export const getById = (_id) => {
+export const getById = (_id, filter = { deleted: false }) => {
     return showroomModel
         .findOne({
             _id,
+            ...filter,
         })
         .exec();
 };
