@@ -11,6 +11,6 @@ const router = express.Router();
 router.route('/showrooms').get(showroomController.getAll).post(validate(showroomValidation.create), showroomController.create).delete(validate(showroomValidation.deleteIds),showroomController.removeByIds)
 router.route('/showrooms/:id').get(validate(showroomValidation.getById), showroomController.getById).delete(validate(showroomValidation.getById), showroomController.removeById).patch(validate(showroomValidation.getById),validate(showroomValidation.updateById), showroomController.updateById)
 router.route('/showrooms/user-near-by').post(validate(showroomValidation.userLocation), showroomController.showroomNearBy);
-// router.get('/showroom/search?',showroomController.search);
+router.get('/showroom/search?',showroomController.search);
 
 export default router;
