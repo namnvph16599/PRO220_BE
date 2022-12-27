@@ -59,7 +59,7 @@ const orderSchema = mongoose.Schema(
         },
         // loai xe may
         vehicleType: {
-            type: String,
+            type: Number,
         },
         //bien so xe
         licensePlates: {

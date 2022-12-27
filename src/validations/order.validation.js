@@ -39,7 +39,7 @@ export const createOrderByCustomer = {
         showroomId: Joi.string().allow('', null),
         address: Joi.string().allow('', null),
         km: Joi.string().allow('', null),
-        vehicleType: Joi.string().allow(1,2,3,4),
+        vehicleType: Joi.number().allow(1,2,3,4),
         licensePlates: Joi.string().required(),
     })
 }
