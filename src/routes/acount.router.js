@@ -1,12 +1,19 @@
-import { Router } from 'express';
-import { accountController, AuthController } from '../controllers';
+import {
+    Router
+} from 'express';
+import {
+    accountController,
+    AuthController
+} from '../controllers';
 import validate from '../middlewares/validate';
-import { accountValidation } from '../validations';
+import {
+    accountValidation
+} from '../validations';
 
 const router = Router();
 
 router.get('/accounts', accountController.getAll);
-router.get('/account/:id', validate(accountValidation.getById), accountController.getById);
+router.get('/accounts/:id', validate(accountValidation.getById), accountController.getById);
 router.delete('/accounts/:id', validate(accountValidation.getById), accountController.removeById);
 router.put(
     '/accounts/:id',
