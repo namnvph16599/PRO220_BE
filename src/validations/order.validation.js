@@ -5,11 +5,18 @@ import {
 
 export const createOrder = {
     body: Joi.object().keys({
+        description: Joi.string().allow('', null),
+        appointmentSchedule: Joi.date().required(),
+        serviceType: Joi.number().required().default(SEVICE_TYPE.SHOWROOM),
+        email: Joi.string().required(),
         name: Joi.string().required(),
-        address: Joi.string().required(),
         number_phone: Joi.string().required(),
-        subPrice: Joi.number().required(),
-        description: Joi.string().required(),
+        showroomId: Joi.string().required(),
+        address: Joi.string().allow('', null),
+        km: Joi.string().allow('', null),
+        vehicleType: Joi.number().allow(1,2,3,4),
+        status : Joi.number().required().allow(2),
+        licensePlates: Joi.string().required(),
     })
 }
 
