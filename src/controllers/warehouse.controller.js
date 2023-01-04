@@ -1,7 +1,5 @@
 import _ from 'lodash';
-import {
-    warehouseService
-} from '../services';
+import { warehouseService } from '../services';
 
 export const create = async (req, res) => {
     try {
@@ -15,27 +13,25 @@ export const create = async (req, res) => {
     }
 };
 
-
-export const getWarehouseRelationalReferenced = async (req,res)=>{
+export const getWarehouseRelationalReferenced = async (req, res) => {
     try {
-        const data = await  warehouseService.getFullWarehouseInformation(req.params);
-        res.json(data);
+        const data = await warehouseService.getFullWarehouseInformation(req.params);
+        const handleData = data[0].materials.filter((item) => item.materialId !== null);
+        res.json(handleData);
     } catch (error) {
         res.status(400).json({
             error: 'Đã có lỗi xảy ra không thể lấy dữ liệu!',
         });
     }
-}
+};
 
-export const updateShowroomWarehousesQuantity = (req,res)=>{
+export const updateShowroomWarehousesQuantity = (req, res) => {
     try {
         const data = warehouseService.updateWarehousesQuantity(req.body);
         res.json(data);
     } catch (error) {
-         res.status(400).json({
+        res.status(400).json({
             error: 'Đã có lỗi xảy ra không thể cập nhật dữ liệu!',
         });
     }
-}
-
-
+};

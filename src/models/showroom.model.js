@@ -1,24 +1,24 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 var mongoose_delete = require('mongoose-delete');
 const showroomSchema = mongoose.Schema({
     name: {
-        type: String
+        type: String,
     },
     phone: {
-        type: String
+        type: String,
     },
     address: {
-        type: String
+        type: String,
     },
-    images:[],
+    images: [],
     location: {
         type: {
-          type: String
+            type: String,
         },
-        coordinates: []
+        coordinates: [],
     },
-})
-showroomSchema.index({ location: '2dsphere' })
+});
+showroomSchema.index({ location: '2dsphere' });
 showroomSchema.plugin(mongoose_delete);
 const showroomModel = mongoose.model('Showroom', showroomSchema);
 

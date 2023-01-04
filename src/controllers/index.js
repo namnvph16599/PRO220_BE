@@ -5,7 +5,3 @@ module.exports.showroomController = require('./showroom.controller');
 module.exports.materialController = require('./materials.controller');
 module.exports.AuthController = require('./auth.controller');
 module.exports.warehouseController = require('./warehouse.controller');
-
-
-
-
