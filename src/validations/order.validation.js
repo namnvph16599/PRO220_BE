@@ -35,12 +35,17 @@ export const createOrderByCustomer = {
     body: Joi.object().keys({
         description: Joi.string().allow('', null),
         appointmentSchedule: Joi.date().required(),
+
         showroomId: Joi.string().allow('', null),
+
         serviceType: Joi.number().required().default(SEVICE_TYPE.SHOWROOM),
         accountId: Joi.string().allow('', null),
         email: Joi.string().allow('', null),
         name: Joi.string().required(),
         number_phone: Joi.string().required(),
+
+        showroomId: Joi.string().allow('', null),
+
         address: Joi.string().allow('', null),
     })
 }
