@@ -2,16 +2,19 @@ import _ from 'lodash';
 import {
     orderService
 } from '../services';
+import {
+    getPhone,
+} from '../services/account.service';
 
 export const getAll = async (req, res) => {
     try {
         const showroomId = req.query.showroomId;
         if (showroomId) {
             const data = await orderService.getAll({
-                showroomId
+                showroomId,
             });
             res.json(data);
-            return
+            return;
         }
         const data = await orderService.getAll();
         res.json(data);
@@ -38,8 +41,21 @@ export const getById = async (req, res) => {
 
 export const create = async (req, res) => {
     try {
-        const data = await orderService.create(req.body);
-        res.status(200).json(data);
+        const number_phone = req.body.number_phone;
+        const _id = await getPhone(number_phone);
+        console.log(_id);
+        if (_id) {
+            const data = await orderService.create({
+                ...req.body,
+                accountId: _id,
+            });
+            res.status(200).json(data);
+        } else {
+            const data = await orderService.create({
+                ...req.body,
+            });
+            res.status(200).json(data);
+        }
     } catch (errors) {
         res.status(400).json({
             errors,
@@ -52,7 +68,7 @@ export const removeById = async (req, res) => {
     try {
         await orderService.removeById(req.params.id);
         const dataDeleted = await orderService.getById(req.params.id, {
-            delete: true
+            delete: true,
         });
         res.json(dataDeleted);
     } catch (errors) {
@@ -70,22 +86,22 @@ export const removeByIds = async (req, res) => {
                 const dataDeleted = await orderService.getById(req.body.ids[0]);
                 res.json({
                     ids: req.body.ids,
-                    dataDeleted
-                })
-                return
+                    dataDeleted,
+                });
+                return;
             }
-        })
+        });
         res.json({
             ids: req.body.ids,
-            dataDeleted: null
-        })
+            dataDeleted: null,
+        });
     } catch (errors) {
         res.status(400).json({
             errors,
             message: 'Đã có lỗi xảy ra xóa thất bại!',
         });
     }
-}
+};
 
 export const updateById = async (req, res) => {
     try {
