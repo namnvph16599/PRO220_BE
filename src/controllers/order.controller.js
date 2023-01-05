@@ -4,7 +4,6 @@ import {
 } from '../services';
 import {
     getPhone,
-    search
 } from '../services/account.service';
 
 export const getAll = async (req, res) => {

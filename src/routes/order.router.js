@@ -12,7 +12,7 @@ const router = express.Router();
 router.get('/orders', orderController.getAll);
 router.get('/orders/:id', validate(orderValidation.getById), orderController.getById);
 router.post('/orders',
-    // validate(orderValidation.createOrder),
+    validate(orderValidation.createOrder),
     orderController.create);
 router.delete('/orders/:id', validate(orderValidation.getById), orderController.removeById);
 router.delete('/orders', validate(orderValidation.deleteByIds), orderController.removeByIds);
