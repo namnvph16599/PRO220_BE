@@ -20,6 +20,12 @@ export const createOrder = {
     })
 }
 
+export const updateOrderStatus = {
+    body: Joi.object().keys({
+        status : Joi.number().required()
+    })
+}
+
 export const getById = {
     params: Joi.object().keys({
         id: Joi.string().required(),
