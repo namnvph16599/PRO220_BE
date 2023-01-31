@@ -10,6 +10,9 @@ const orderSchema = mongoose.Schema(
         address: {
             type: String,
         },
+        email: {
+            type: String,
+        },
         number_phone: {
             type: String,
         },
