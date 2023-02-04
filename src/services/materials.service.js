@@ -16,7 +16,7 @@ export const create = async (data) => {
 
 export const removeById = async (_id, filter = { deleted: false }) => {
     const materialId = mongoose.Types.ObjectId(_id);
-    return materialsModel.findOneAndDelete({ _id: materialId, ...filter });
+    return materialsModel.delete({ _id: materialId, ...filter });
 };
 
 export const removeByIds = async (ids = []) => {
