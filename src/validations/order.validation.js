@@ -22,6 +22,8 @@ export const updateOrderStatus = {
     body: Joi.object().keys({
         status: Joi.number().required(),
         reasons: Joi.array().items(Joi.string()).empty(),
+        materialIds: Joi.array().items(Joi.string()).empty(),
+        materials: Joi.array().items().empty(),
     }),
 };
 
