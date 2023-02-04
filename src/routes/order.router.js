@@ -1,11 +1,7 @@
 import express from 'express';
-import {
-    orderController
-} from '../controllers';
+import { orderController } from '../controllers';
 import validate from '../middlewares/validate';
-import {
-    orderValidation
-} from '../validations';
+import { orderValidation } from '../validations';
 
 const router = express.Router();
 
@@ -22,5 +18,6 @@ router.patch(
 );
 //customer
 router.post('/order-by-customer', validate(orderValidation.createOrderByCustomer), orderController.create);
+router.get('/orders-customer/:accountId', orderController.getUserOrders);
 
 export default router;
