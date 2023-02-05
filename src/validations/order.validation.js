@@ -30,6 +30,7 @@ export const updateOrderStatus = {
         reasons: Joi.array().items(Joi.string()).empty(),
         materialIds: Joi.array().items(Joi.string()).empty(),
         materials: Joi.array().items().empty(),
+        total: Joi.number().allow('', null),
     }),
 };
 
