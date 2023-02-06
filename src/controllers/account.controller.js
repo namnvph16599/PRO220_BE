@@ -45,18 +45,18 @@ export const removeById = async (req, res) => {
 
 export const updateById = async (req, res) => {
     try {
-        let value = {}
-        if (_.has(req.body,'password')) {
+        let value = {};
+        if (_.has(req.body, 'password')) {
             value = {
                 ...req.body,
-                password:bcyrpt.hashSync(req.body.password,10)
-            }
-        }else{
+                password: bcyrpt.hashSync(req.body.password, 10),
+            };
+        } else {
             value = {
-                ...req.body
-            }
+                ...req.body,
+            };
         }
-        const data = await accountServices.updateById(req.params.id,value);
+        const data = await accountServices.updateById(req.params.id, value);
         res.json(data);
     } catch (error) {
         res.status(400).json({
@@ -76,15 +76,15 @@ export const getById = async (req, res) => {
     }
 };
 
-export const changePassword = async(req,res)=>{
+export const changePassword = async (req, res) => {
     try {
-        const data = await accountServices.getById(req.params.id)
-        const compareSync = bcyrpt.compareSync(req.body.currentPassword,_.get(data,'password'))
-        const status = compareSync ? STATUS_TYPE.SUCCESS:STATUS_TYPE.ERROR
-        res.json(status)
+        const data = await accountServices.getById(req.params.id);
+        const compareSync = bcyrpt.compareSync(req.body.currentPassword, _.get(data, 'password'));
+        const status = compareSync ? STATUS_TYPE.SUCCESS : STATUS_TYPE.ERROR;
+        res.json(status);
     } catch (error) {
         res.status(400).json({
-            message:error
-        })
+            message: error,
+        });
     }
-}
+};
