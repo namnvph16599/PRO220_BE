@@ -17,7 +17,7 @@ export const getFullWarehouseInformation = async (data) => {
         .populate({
             path: 'materials.materialId',
             match: { deleted: false },
-            select: ['name', 'price', 'image', 'deleted'],
+            select: ['name', 'price', 'quantity', 'image', 'deleted'],
         })
         .exec();
 };
@@ -66,4 +66,36 @@ const updateQuantityMaterial = async (dataObj) => {
     } catch (error) {
         return error;
     }
+};
+
+export const updateQuantityMaterialBack = async (dataObj) => {
+    try {
+        const dataWarehouse = await warehouseModel.findOne({ showroomId: dataObj.idShowroom });
+        const material = dataWarehouse.materials.find((part) => part.materialId == dataObj.material.materialId);
+        const dataUpdate = await warehouseModel.updateOne(
+            {
+                showroomId: mongoose.Types.ObjectId(dataObj.idShowroom),
+                'materials.materialId': mongoose.Types.ObjectId(dataObj.material.materialId),
+            },
+            {
+                $set: { 'materials.$.quantity': dataObj.material.quantity + material.quantity },
+            },
+        );
+        return dataUpdate;
+    } catch (error) {
+        return error;
+    }
+};
+
+const searchMaterial = (materials, name) => {
+    return materials.filter((material) => material.materialId.name.toLowerCase().includes(name.toLowerCase()));
+};
+
+export const filterWarehouseMaterial = async (data) => {
+    const listData = await warehouseModel.findOne({ showroomId: data.query.showroomId }).populate({
+        path: 'materials.materialId',
+        match: { deleted: false },
+        select: ['name', 'price', 'quantity', 'image', 'deleted'],
+    });
+    return searchMaterial(listData.materials, data.body.name);
 };

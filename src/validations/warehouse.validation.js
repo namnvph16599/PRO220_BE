@@ -8,6 +8,7 @@ export const warehouseMaterial = {
                 Joi.object({
                     materialId: Joi.string(),
                     qty: Joi.number(),
+                    price: Joi.number().allow('', null),
                 }),
             )
             .required(),
@@ -27,5 +28,14 @@ export const warehouseMaterialUpdateOne = {
 export const warehouseIdShowroom = {
     params: Joi.object().keys({
         id: Joi.string().required(),
+    }),
+};
+
+export const materialFilter = {
+    query: Joi.object().keys({
+        showroomId: Joi.string().required(),
+    }),
+    body: Joi.object().keys({
+        name: Joi.string().required(),
     }),
 };
