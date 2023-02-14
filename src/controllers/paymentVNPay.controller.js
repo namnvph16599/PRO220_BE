@@ -2,19 +2,8 @@ import dateFormat from 'dateformat';
 import queryStrings from 'qs';
 import crypto from 'crypto';
 
-export const Payment = (req, res, next) => {
-    const {
-        amount,
-        bankCode,
-        orderInfo,
-        orderType,
-        locale = 'vn',
-    } = {
-        amount: 30000,
-        bankCode: '',
-        orderInfo: 'Nhà 06-Phòng 02 _thanh toán tiến trọ tháng 12/2022 với mã thanh toán=63a5db9dbccedf1eaec5717a ',
-        orderType: 'billpayment',
-    };
+export const Payment = async (req, res) => {
+    const { amount, bankCode, orderInfo, orderType, locale = 'vn' } = req.body;
     const ipAddr =
         req.headers['x-forwarded-for'] ||
         req.connection.remoteAddress ||
@@ -51,7 +40,7 @@ export const Payment = (req, res, next) => {
     return res.json(vnpUrl);
 };
 
-export const vnpayReturn = (req, res, next)=>{
+export const vnpayReturn = (req, res, next) => {
     var vnp_Params = req.query;
     var secureHash = vnp_Params['vnp_SecureHash'];
 
@@ -72,9 +61,9 @@ export const vnpayReturn = (req, res, next)=>{
     } else {
         AppResponse.success(req, res, 97)(null);
     }
-}
+};
 
-export const vnpay_Ipn = (req, res, next)=>{
+export const vnpay_Ipn = (req, res, next) => {
     var vnp_Params = req.query;
     var secureHash = vnp_Params['vnp_SecureHash'];
 
@@ -84,19 +73,17 @@ export const vnpay_Ipn = (req, res, next)=>{
     vnp_Params = sortObject(vnp_Params);
     var secretKey = process.env.VNP_HASHSECRET;
     var signData = queryStrings.stringify(vnp_Params, { encode: false });
-    // var crypto = require('crypto');
     var hmac = crypto.createHmac('sha512', secretKey);
     var signed = hmac.update(new Buffer(signData, 'utf-8')).digest('hex');
 
     if (secureHash === signed) {
         var orderId = vnp_Params['vnp_TxnRef'];
         var rspCode = vnp_Params['vnp_ResponseCode'];
-        //Kiem tra du lieu co hop le khong, cap nhat trang thai don hang va gui ket qua cho VNPAY theo dinh dang duoi
         res.status(200).json({ RspCode: '00', Message: 'success' });
     } else {
         res.status(200).json({ RspCode: '97', Message: 'Fail checksum' });
     }
-}
+};
 
 function sortObject(obj) {
     var sorted = {};
