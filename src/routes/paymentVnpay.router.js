@@ -6,6 +6,6 @@ const routerPayment = Router();
 routerPayment.post('/create_payment_url', Payment);
 routerPayment.get('/vnpay_return', vnpayReturn);
 routerPayment.get('/vnpay_ipn', vnpay_Ipn);
-routerPayment.get('/sendMail', SendMail);
+routerPayment.post('/sendMail', SendMail);
 
 export default routerPayment;
