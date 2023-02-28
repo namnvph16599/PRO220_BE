@@ -173,3 +173,60 @@ export const getOrderTotal = async (req, res) => {
         });
     }
 };
+
+export const getOrderRevenua = async (req, res) => {
+    try {
+        const { start, end } = getStartAndEndOfByTime(req.body.type, req.body.time);
+        const not_payment = await OrderModel.aggregate([
+            {
+                $match: {
+                    createdAt: {
+                        $lt: end,
+                        $gt: start,
+                    },
+                    showroomId: mongoose.Types.ObjectId(req.body.showroomId),
+                    status: 4,
+                },
+            },
+            {
+                $project: {
+                    status: 1,
+                    createdAt: 1,
+                    total: 1,
+                },
+            },
+            {
+                $sort: { createdAt: 1 },
+            },
+        ]);
+        const paymented = await OrderModel.aggregate([
+            {
+                $match: {
+                    createdAt: {
+                        $lt: end,
+                        $gt: start,
+                    },
+                    showroomId: mongoose.Types.ObjectId(req.body.showroomId),
+                    status: 5,
+                },
+            },
+            {
+                $project: {
+                    status: 1,
+                    createdAt: 1,
+                    total: 1,
+                },
+            },
+            {
+                $sort: { createdAt: 1 },
+            },
+        ]);
+        res.status(200).json({ paymented, not_payment });
+    } catch (errors) {
+        console.log('errors-getOrderRevenua', errors);
+        res.status(400).json({
+            errors,
+            message: 'Đã có lỗi xảy ra cập nhật thất bại!',
+        });
+    }
+};
