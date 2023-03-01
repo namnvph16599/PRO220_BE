@@ -4,20 +4,37 @@ import { OrderModel } from '../models';
 import { orderService } from '../services';
 import { getStartAndEndOfByTime } from '../utils/time';
 
+const formatRequestFilterGetOrders = (body) => {
+    const newBody = _.cloneDeep(body);
+    for (const [key, value] of Object.entries(body)) {
+        if (value.time && value.type) {
+            const { start, end } = getStartAndEndOfByTime(value.type, value.time);
+            const condition = {
+                $lt: end,
+                $gt: start,
+            };
+            newBody[key] = condition;
+        }
+    }
+    return newBody;
+};
+
 export const getAll = async (req, res) => {
     try {
         const showroomId = req.query.showroomId;
+        const filter = formatRequestFilterGetOrders(req.body);
         if (showroomId) {
             const data = await orderService.getAll({
                 showroomId,
-                ...req.body,
+                ...filter,
             });
             res.json(data);
             return;
         }
-        const data = await orderService.getAll(req.body);
+        const data = await orderService.getAll(filter);
         res.json(data);
     } catch (errors) {
+        console.log('errors-getAll-Order', errors);
         res.status(400).json({
             errors,
             message: 'Đã có lỗi xảy ra không tìm thấy dữ liệu!',
