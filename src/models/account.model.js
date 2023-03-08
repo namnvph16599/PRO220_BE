@@ -21,10 +21,13 @@ const accountSchema = mongoose.Schema(
             type: String,
         },
         showroomId: {
-            type: String,
+            default: null,
+            type: mongoose.ObjectId,
+            ref: 'Showroom',
         },
         roleId: {
-            type: Schema.Types.ObjectId,
+            default: null,
+            type: mongoose.ObjectId,
             ref: 'Role',
         },
     },
