@@ -23,7 +23,7 @@ const accountSchema = mongoose.Schema(
         showroomId: {
             type: String,
         },
-        role: {
+        roleId: {
             type: Schema.Types.ObjectId,
             ref: 'Role',
         },
