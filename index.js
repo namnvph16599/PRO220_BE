@@ -18,6 +18,7 @@ import routerRole from './src/routes/role.router';
 import routerPermission from './src/routes/permission.router';
 import routerPost from './src/routes/post.router';
 import routerService from './src/routes/service.router';
+import routeDiscount from './src/routes/discount.router';
 
 const app = express();
 // const app = express();
@@ -44,6 +45,7 @@ app.use('/api', routerRole);
 app.use('/api', routerPermission);
 app.use('/api', routerPost);
 app.use('/api', routerService);
+app.use('/api', routeDiscount);
 
 // parse urlencoded request body
 app.use(
