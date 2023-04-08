@@ -10,3 +10,4 @@ module.exports.permissionService = require('./permission.service');
 module.exports.PostService = require('./post.service');
 module.exports.ServiceType = require('./serviceType.service');
 module.exports.Discount = require('./discount.service');
+module.exports.subService = require('./subservice.service');
