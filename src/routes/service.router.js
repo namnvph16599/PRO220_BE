@@ -7,10 +7,10 @@ const router = express.Router();
 router.post('/service', ServiceController.createService);
 router.get('/service', ServiceController.listService);
 
-router.get('/banner/:id', ServiceController.getByIdService);
-router.delete('/banner/:id', ServiceController.removeByIdService);
+router.get('/service/:id', ServiceController.getByIdService);
+router.delete('/service/:id', ServiceController.removeByIdService);
 router.patch(
-    '/banner/:id',
+    '/service/:id',
     ServiceController.updateByIdService,
 );
 
