@@ -3,5 +3,13 @@ module.exports.orderService = require('./order.service');
 module.exports.accountServices = require('./account.service');
 module.exports.showroomService = require('./showroom.service');
 module.exports.materialsService = require('./materials.service');
-
-
+module.exports.warehouseService = require('./warehouse.service');
+module.exports.districtService = require('./district.service');
+module.exports.roleService = require('./role.service');
+module.exports.permissionService = require('./permission.service');
+module.exports.PostService = require('./post.service');
+module.exports.ServiceType = require('./serviceType.service');
+module.exports.Discount = require('./discount.service');
+module.exports.subService = require('./subservice.service');
+module.exports.generalWarehouse = require('./generalWarehouse.service');
+module.exports.notifiPartService = require('./notificationPart.service');

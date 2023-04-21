@@ -1,8 +1,41 @@
 import mongoose from 'mongoose';
+import { ORDER_STATUS, SEVICE_TYPE } from '../constans/order';
+import { number, string } from 'joi';
+var mongoose_delete = require('mongoose-delete');
 
 const orderSchema = mongoose.Schema(
     {
-        date: {
+        name: {
+            type: String,
+        },
+        address: {
+            type: String,
+        },
+        email: {
+            type: String,
+        },
+        number_phone: {
+            type: String,
+        },
+        status: {
+            default: ORDER_STATUS.initial.value,
+            type: Number,
+        },
+        price: {
+            type: Number,
+        },
+        subPrice: {
+            type: Number,
+        },
+        total: {
+            type: Number,
+            default: 0,
+        },
+        totalWithVat: {
+            type: Number,
+            default: 0,
+        },
+        appointmentSchedule: {
             type: Date,
         },
         serviceType: {
@@ -11,17 +44,108 @@ const orderSchema = mongoose.Schema(
         description: {
             type: String,
         },
-        user: {
+        accountId: {
             type: mongoose.ObjectId,
-            ref: 'user',
+            ref: 'Account',
         },
-        cateStore: {
+        showroomId: {
             type: mongoose.ObjectId,
-            ref: 'showroom',
+            ref: 'Showroom',
         },
-        cateService: {
-            type: mongoose.ObjectId,
-            ref: 'cateService',
+        showroomName: {
+            type: String,
+        },
+        showroomAddress: {
+            type: String,
+        },
+        materialIds: {
+            type: Array,
+            default: [],
+            ref: 'Material',
+        },
+        materials: [
+            {
+                materialId: {
+                    type: mongoose.ObjectId,
+                    ref: 'Material',
+                },
+                qty: {
+                    type: Number,
+                },
+                price: {
+                    type: Number,
+                },
+                priceInitial: {
+                    type: Number,
+                },
+                unit: {
+                    type: String,
+                    default: 'Cái',
+                },
+                name: {
+                    type: String,
+                },
+            },
+        ],
+        subServices: {
+            type: [
+                {
+                    _id: {
+                        type: String,
+                    },
+                    name: {
+                        type: String,
+                    },
+                    priceWorking: {
+                        type: Number,
+                        default: 0,
+                    },
+                },
+            ],
+            default: [],
+        },
+        reasons: {
+            type: Array,
+            default: [],
+        },
+        //km xe chay
+        km: {
+            type: String,
+        },
+        // loai xe may
+        vehicleType: {
+            type: String,
+        },
+        //bien so xe
+        licensePlates: {
+            type: String,
+        },
+        soKhung: {
+            type: String,
+        },
+        vehicleNumber: {
+            type: String,
+        },
+        gas: {
+            type: String,
+        },
+        tg_nhan_xe: {
+            type: Date,
+        },
+        tg_tra_xe: {
+            type: Date,
+        },
+        VAT: {
+            type: Number,
+            default: 10,
+        },
+        seen: {
+            type: Boolean,
+            default: false,
+        },
+        isCustomer: {
+            type: Boolean,
+            default: true,
         },
     },
     {
@@ -29,8 +153,8 @@ const orderSchema = mongoose.Schema(
     },
 );
 
-// export default mongoose.model('Order', orderSchema) //no cai nay xoa r ma???
+orderSchema.plugin(mongoose_delete);
 
-const OrderModel = mongoose.model('OrderModel', orderSchema);
+const OrderModel = mongoose.model('Order', orderSchema);
 
 module.exports = OrderModel;
