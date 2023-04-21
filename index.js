@@ -33,7 +33,7 @@ app.use(cookiesParser());
 app.use(morgan('tiny'));
 app.use(
     cors({
-        origin: ['http://127.0.0.1:5173', 'http://localhost:3000', 'https://dodoris.vercel.app/'],
+        origin: ['http://127.0.0.1:5173', 'http://localhost:3000', 'http://dodoris.vercel.app/'],
         credentials: true,
     }),
 );
