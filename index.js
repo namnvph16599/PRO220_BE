@@ -31,7 +31,12 @@ app.use(express.json());
 app.use(cookiesParser());
 //use morgan log info when get data
 app.use(morgan('tiny'));
-app.use(cors({ origin: ['http://127.0.0.1:5173', 'http://localhost:3000'], credentials: true }));
+app.use(
+    cors({
+        origin: ['http://127.0.0.1:5173', 'http://localhost:3000', 'https://dodoris.vercel.app/'],
+        credentials: true,
+    }),
+);
 app.options('*', cors());
 //use routers
 
