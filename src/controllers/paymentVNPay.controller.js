@@ -105,15 +105,15 @@ export const SendMail = async (req, res) => {
         port: 587,
         secure: false,
         auth: {
-            user: 'huyndph14652@fpt.edu.vn',
-            pass: 'upphlixzjrebbmxz',
+            user: 'namnvph16599@fpt.edu.vn',
+            pass: 'flfrdbtiavwnyuxr',
         },
         tls: {
             rejectUnauthorized: false,
         },
     });
     const option = {
-        from: 'huyndph14652@fpt.edu.vn',
+        from: 'namnvph16599@fpt.edu.vn',
         to: email,
         subject: 'Dịch Vụ Đặt Lịch Sửa Xe Dodoris',
         html: ` 
@@ -164,10 +164,11 @@ export const SendMail = async (req, res) => {
     };
     return transporter.sendMail(option, (err, info) => {
         if (err) {
-            return;
+            return res.status(400).json(err);
         }
-
-        res.json({ status: info.response });
+        if (info) {
+            return res.status(200).json({ status: info.response });
+        }
     });
 };
 

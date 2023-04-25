@@ -110,7 +110,7 @@ const handleMaterialsData = (data, id) => {
 
     return {
         name: materials.name,
-        email: materials.email,
+        email: materials.email || data.email,
         number_phone: materials.number_phone,
         status: materials.status,
         appointmentSchedule: materials.appointmentSchedule,
